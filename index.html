@@ -19,8 +19,7 @@
 
   .masthead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px var(--pad);border-bottom:1px solid var(--rule)}
   .mark{font-weight:800;letter-spacing:.16em;text-transform:uppercase;font-size:14px;color:inherit;text-decoration:none}
-  .who{font-family:var(--mono);font-size:12px;color:var(--muted);text-align:right}
-  .who button{font:inherit;color:var(--ink);background:none;border:0;border-bottom:1px solid var(--rule);padding:0;cursor:pointer}
+  .masthead .clock{font-family:var(--mono);font-size:12px;color:var(--muted);text-align:right}
 
   /* signature: the status band */
   .band{background:var(--ink);color:var(--card);padding:0 0 22px}
@@ -33,12 +32,14 @@
   .tag{font-family:var(--mono);font-size:13px;letter-spacing:.08em;margin:12px var(--pad) 0;opacity:.9}
   .holding{margin:14px var(--pad) 0;font-size:16px}
   .holding strong{font-weight:700}
+  .holding .stamp{display:block;font-family:var(--mono);font-size:12px;opacity:.85;margin-top:4px;letter-spacing:.02em}
 
   .facts{border-bottom:1px solid var(--rule);margin:0}
   .fact{display:flex;gap:14px;padding:11px var(--pad);border-bottom:1px solid var(--rule)}
   .fact:last-child{border-bottom:0}
-  .fact dt{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);width:86px;flex:none;padding-top:3px;margin:0}
+  .fact dt{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);width:92px;flex:none;padding-top:3px;margin:0}
   .fact dd{margin:0}
+  .fact dd .sub{display:block;font-family:var(--mono);font-size:12px;color:var(--muted)}
 
   .controls{padding:var(--pad)}
   .btn{display:block;width:100%;min-height:66px;margin-bottom:12px;font-family:var(--sans);font-weight:800;font-size:20px;letter-spacing:.06em;text-transform:uppercase;color:var(--card);background:var(--ink);border:0;border-radius:2px;cursor:pointer;text-align:center;text-decoration:none}
@@ -47,17 +48,22 @@
   .btn[data-kind="quiet"]{background:none;color:var(--ink);border:1.5px solid var(--ink);min-height:52px;font-size:16px;line-height:49px}
   .btn:active{transform:translateY(1px)}
   .btn:disabled{opacity:.5}
-  .btn:focus-visible,.who button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+  .btn:focus-visible,input:focus-visible,a:focus-visible,button:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 
   label{display:block;margin:0 0 16px}
   label span{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
   input{width:100%;font:inherit;padding:14px;background:var(--card);border:1.5px solid var(--rule);border-radius:2px;color:var(--ink)}
+  .recent{display:flex;flex-wrap:wrap;gap:8px;margin:-8px 0 16px}
+  .recent button{font:inherit;font-size:15px;padding:8px 14px;background:var(--card);border:1.5px solid var(--rule);border-radius:999px;cursor:pointer;color:var(--ink)}
   .search{padding:var(--pad) var(--pad) 4px}
 
   .section-title{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding:0 var(--pad);margin:26px 0 10px}
   .log{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
-  .log li{display:flex;gap:12px;padding:10px var(--pad);border-bottom:1px solid var(--rule);font-size:15px}
-  .log time{font-family:var(--mono);font-size:12px;color:var(--muted);width:96px;flex:none;padding-top:2px}
+  .log li{display:flex;gap:14px;padding:12px var(--pad);border-bottom:1px solid var(--rule);font-size:15px;align-items:flex-start}
+  .log time{font-family:var(--mono);font-size:12px;color:var(--muted);width:106px;flex:none;line-height:1.35;padding-top:2px}
+  .log time b{display:block;font-weight:500;color:var(--ink)}
+  .log .what{flex:1}
+  .log .what .by{display:block;font-size:13px;color:var(--muted)}
 
   .items{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
   .items a{display:flex;align-items:center;gap:12px;padding:14px var(--pad);border-bottom:1px solid var(--rule);color:inherit;text-decoration:none}
@@ -66,7 +72,8 @@
   .dot[data-status="repair"]{background:var(--repair)}
   .dot[data-status="retired"]{background:var(--retired)}
   .items .name{flex:1;font-weight:600}
-  .items .meta{font-family:var(--mono);font-size:12px;color:var(--muted);text-align:right}
+  .items .name .sub{display:block;font-weight:400;font-family:var(--mono);font-size:12px;color:var(--muted)}
+  .items .meta{font-family:var(--mono);font-size:12px;color:var(--muted);text-align:right;flex:none}
 
   .note{padding:var(--pad);color:var(--muted);font-size:15px}
   .alert{margin:var(--pad);padding:14px;border-left:4px solid var(--out);background:var(--card);font-size:15px}
@@ -78,8 +85,8 @@
 <body>
 <div class="wrap">
   <header class="masthead">
-    <a class="mark" href="./">Asset Tracking Log</a>
-    <div class="who" id="who"></div>
+    <a class="mark" href="./">Gear Cage</a>
+    <div class="clock" id="clock"></div>
   </header>
   <main id="app"></main>
 </div>
@@ -124,41 +131,66 @@ function seed(){
 const now = () => new Date().toISOString();
 const find = (data, id) => data.items.find(i => i.id.toLowerCase() === String(id).trim().toLowerCase());
 
-function note(data, item, action, person){
-  data.log.unshift({ at: now(), id: item.id, name: item.name, action, person: person || '' });
-  if (data.log.length > 2000) data.log.length = 2000;
+/* Every entry is written once and never edited. This is the audit trail.
+   The sequence number keeps the order unambiguous even if two actions land
+   in the same second, and makes a gap visible if anyone edits the file. */
+function note(data, item, action, person, extra){
+  if (!data.nextSeq) data.nextSeq = (data.log[0] && data.log[0].seq || 0) + 1;
+  data.log.unshift(Object.assign({
+    seq: data.nextSeq++, at: now(), id: item.id, name: item.name, action, person: person || ''
+  }, extra || {}));
+  if (data.log.length > 5000) data.log.length = 5000;
+}
+
+/* Names offered as quick-tap chips. Convenience only — never auto-filled. */
+function names(){
+  try { return JSON.parse(localStorage.getItem('gearcage.names')) || []; } catch (e) { return []; }
+}
+function remember(name){
+  const list = [name, ...names().filter(n => n.toLowerCase() !== name.toLowerCase())].slice(0, 6);
+  try { localStorage.setItem('gearcage.names', JSON.stringify(list)); } catch (e) {}
 }
 
 /* ================================================================ plumbing */
 
 const app = document.getElementById('app');
-const who = document.getElementById('who');
-const tagId = new URLSearchParams(location.search).get('id');
-let person = get('gearcage.person') || '';
-
-function get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }
-function set(k,v){ try { localStorage.setItem(k,v); } catch(e){} }
+const clock = document.getElementById('clock');
+const params = new URLSearchParams(location.search);
+const tagId = params.get('id');
+const view = params.get('view');
 
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const WORDS = { in:'In the office', out:'Checked out', repair:'In repair', retired:'Retired' };
+const WORDS = { in:'In the cage', out:'Checked out', repair:'In repair', retired:'Retired' };
 
-function when(iso){
-  if (!iso) return '';
+/* Audit timestamps: always the real date and time, never only "2 hr ago". */
+function stampDate(iso){
   const d = new Date(iso);
-  if (isNaN(d)) return String(iso);
-  const mins = Math.round((Date.now() - d) / 60000);
-  if (mins < 1) return 'just now';
-  if (mins < 60) return mins + ' min ago';
-  if (mins < 1440) return Math.round(mins/60) + ' hr ago';
-  if (mins < 10080) return Math.round(mins/1440) + ' d ago';
-  return d.toLocaleDateString(undefined, { month:'short', day:'numeric' });
+  if (isNaN(d)) return String(iso || '');
+  return d.toLocaleDateString(undefined, { year:'numeric', month:'short', day:'2-digit' });
+}
+function stampTime(iso){
+  const d = new Date(iso);
+  if (isNaN(d)) return '';
+  return d.toLocaleTimeString(undefined, { hour:'2-digit', minute:'2-digit' });
+}
+const stamp = iso => iso ? stampDate(iso) + ' · ' + stampTime(iso) : '';
+
+function lasting(iso){
+  const d = new Date(iso);
+  if (isNaN(d)) return '';
+  const mins = Math.max(0, Math.floor((Date.now() - d) / 60000));
+  if (mins < 1) return 'under a minute';
+  const days = Math.floor(mins / 1440), hrs = Math.floor((mins % 1440) / 60), m = mins % 60;
+  if (days) return days + ' d ' + hrs + ' h';
+  if (hrs)  return hrs + ' h ' + m + ' m';
+  return m + ' m';
 }
 
-function showWho(){
-  who.innerHTML = person ? 'Signed in as ' + esc(person) + '<br><button type="button" id="switch">switch</button>' : '';
-  const b = document.getElementById('switch');
-  if (b) b.onclick = () => { person = ''; set('gearcage.person',''); render(); };
+function tick(){
+  clock.textContent = stamp(now());
 }
+tick();
+setInterval(tick, 30000);
 
 function hint(text){
   document.querySelectorAll('.hint').forEach(n => n.remove());
@@ -168,11 +200,30 @@ function hint(text){
   (document.querySelector('.controls') || app).prepend(box);
 }
 
+/* Name field + quick-tap chips. Starts empty on every check-out, on purpose. */
+function nameField(prefill, caption){
+  const list = names();
+  return `
+    <label><span>${esc(caption)}</span>
+      <input id="name" autocomplete="off" autocapitalize="words" placeholder="Type a name" value="${esc(prefill || '')}">
+    </label>
+    ${list.length ? `<div class="recent">${list.map(n => `<button type="button" class="pick">${esc(n)}</button>`).join('')}</div>` : ''}`;
+}
+function wireNameField(){
+  document.querySelectorAll('.pick').forEach(b => {
+    b.onclick = () => {
+      const input = document.getElementById('name');
+      input.value = b.textContent;
+      input.focus();
+    };
+  });
+}
+
 /* =================================================================== views */
 
 function render(){
-  showWho();
   const data = db();
+  if (view === 'log') return renderAudit(data, '');
   if (!tagId) return renderList(data, '');
   const item = find(data, tagId);
   item ? renderItem(data, item) : renderRegister();
@@ -183,23 +234,31 @@ function renderItem(data, item){
   const out = status === 'out';
   const word = WORDS[status] || status;
   const history = data.log.filter(l => l.id === item.id).slice(0, 8);
+  const lastIn = data.log.find(l => l.id === item.id && l.action === 'Check in');
 
   app.innerHTML = `
     <section class="band" data-status="${esc(status)}">
       <div class="ticker">${(word.toUpperCase() + ' · ').repeat(8)}</div>
       <h1>${esc(item.name)}</h1>
       <p class="tag">${esc(item.id)}${item.category ? ' · ' + esc(item.category) : ''}</p>
-      ${out && item.holder ? `<p class="holding"><strong>${esc(item.holder)}</strong> has it${item.since ? ', since ' + esc(when(item.since)) : ''}</p>` : ''}
+      ${out && item.holder ? `<p class="holding"><strong>${esc(item.holder)}</strong> has it
+        <span class="stamp">Since ${esc(stamp(item.since))} — ${esc(lasting(item.since))}</span></p>` : ''}
     </section>
 
     <dl class="facts">
       <div class="fact"><dt>Status</dt><dd>${esc(word)}</dd></div>
+      <div class="fact"><dt>${out ? 'Checked out' : 'Last change'}</dt>
+        <dd>${item.since ? esc(stamp(item.since)) : '—'}
+        ${item.since ? `<span class="sub">${esc(lasting(item.since))} ago</span>` : ''}</dd></div>
+      ${!out && lastIn ? `<div class="fact"><dt>Returned by</dt><dd>${esc(lastIn.person || 'unrecorded')}</dd></div>` : ''}
       ${item.location ? `<div class="fact"><dt>Kept at</dt><dd>${esc(item.location)}</dd></div>` : ''}
       ${item.notes ? `<div class="fact"><dt>Notes</dt><dd>${esc(item.notes)}</dd></div>` : ''}
     </dl>
 
     <div class="controls">
-      ${person ? '' : `<label><span>Your name</span><input id="name" autocomplete="name" placeholder="e.g. Sam Ortiz"></label>`}
+      ${out
+        ? nameField(item.holder, 'Who is returning it?')
+        : nameField('', 'Who is taking it?')}
       ${out ? `<button class="btn" data-kind="in" id="act">Check in</button>`
             : `<button class="btn" data-kind="out" id="act">Check out</button>`}
       <button class="btn" data-kind="quiet" id="repair">${status === 'repair' ? 'Back in service' : 'Mark for repair'}</button>
@@ -207,20 +266,33 @@ function renderItem(data, item){
     </div>
 
     ${history.length ? `
-      <p class="section-title">Recent activity</p>
+      <p class="section-title">History</p>
       <ul class="log">${history.map(h => `
-        <li><time>${esc(when(h.at))}</time><span>${esc(h.action)}${h.person ? ' — ' + esc(h.person) : ''}</span></li>`).join('')}
-      </ul>` : ''}`;
+        <li>
+          <time><b>${esc(stampDate(h.at))}</b>${esc(stampTime(h.at))}</time>
+          <span class="what">${esc(h.action)}
+            <span class="by">${h.person ? esc(h.person) : 'no name recorded'}${h.held ? ' · out ' + esc(h.held) : ''}</span>
+          </span>
+        </li>`).join('')}
+      </ul>
+      <p class="footer"><a href="?view=log">Full audit log</a></p>` : ''}`;
+
+  wireNameField();
 
   document.getElementById('act').onclick = () => {
     const input = document.getElementById('name');
-    const name = person || (input ? input.value.trim() : '');
-    if (!name) { hint('Add your name first, then tap again.'); if (input) input.focus(); return; }
-    person = name; set('gearcage.person', name); showWho();
+    const name = input.value.trim();
+    if (!name) {
+      hint(out ? 'Type who is returning it before tapping check in.' : 'Type who is taking it before tapping check out.');
+      input.focus();
+      return;
+    }
+    remember(name);
 
     if (out) {
+      const held = lasting(item.since);
       item.status = 'in'; item.holder = ''; item.since = now();
-      note(data, item, 'Check in', name);
+      note(data, item, 'Check in', name, { held });
     } else {
       item.status = 'out'; item.holder = name; item.since = now();
       note(data, item, 'Check out', name);
@@ -230,10 +302,11 @@ function renderItem(data, item){
   };
 
   document.getElementById('repair').onclick = () => {
+    const name = document.getElementById('name').value.trim();
     item.status = status === 'repair' ? 'in' : 'repair';
     item.holder = '';
     item.since = now();
-    note(data, item, status === 'repair' ? 'Back in service' : 'Marked for repair', person);
+    note(data, item, status === 'repair' ? 'Back in service' : 'Marked for repair', name);
     commit(data);
     renderItem(data, item);
   };
@@ -250,22 +323,28 @@ function renderRegister(){
       <label><span>What is it?</span><input id="rname" placeholder="e.g. Impact driver"></label>
       <label><span>Category</span><input id="rcat" placeholder="e.g. Power tools"></label>
       <label><span>Kept at</span><input id="rloc" placeholder="e.g. Shelf B"></label>
+      ${nameField('', 'Who is adding it?')}
       <button class="btn" id="reg">Add to the cage</button>
     </div>`;
+
+  wireNameField();
 
   document.getElementById('reg').onclick = () => {
     const name = document.getElementById('rname').value.trim();
     if (!name) { hint('Give it a name first.'); return; }
+    const by = document.getElementById('name').value.trim();
+    if (by) remember(by);
+
     const data = db();
     const item = {
       id: tagId.trim(), name,
       category: document.getElementById('rcat').value.trim(),
       status: 'in', holder: '',
       location: document.getElementById('rloc').value.trim(),
-      notes: '', since: ''
+      notes: '', since: now()
     };
     data.items.push(item);
-    note(data, item, 'Registered', person);
+    note(data, item, 'Registered', by);
     commit(data);
     renderItem(data, item);
   };
@@ -277,13 +356,13 @@ function renderList(data, term){
     .filter(i => !t || [i.id, i.name, i.category, i.holder, i.location].join(' ').toLowerCase().includes(t))
     .sort((a, b) => a.name.localeCompare(b.name));
   const out = data.items.filter(i => i.status === 'out').length;
-  const feed = data.log.slice(0, 10);
+  const feed = data.log.slice(0, 8);
 
   app.innerHTML = `
     <section class="band" data-status="${out ? 'out' : 'in'}">
       <div class="ticker">${((out ? out + ' OUT' : 'ALL IN') + ' · ').repeat(8)}</div>
       <h1>${out ? out + ' of ' + data.items.length + '<br>signed out' : 'Everything<br>is in'}</h1>
-      <p class="tag">${data.items.length} tagged item${data.items.length === 1 ? '' : 's'}</p>
+      <p class="tag">${data.items.length} tagged item${data.items.length === 1 ? '' : 's'} · as of ${esc(stamp(now()))}</p>
     </section>
 
     <div class="search"><label><span>Find</span><input id="q" placeholder="name, tag, person, shelf" value="${esc(term)}"></label></div>
@@ -293,19 +372,30 @@ function renderList(data, term){
     <ul class="items">${items.map(i => `
       <li><a href="?id=${encodeURIComponent(i.id)}">
         <span class="dot" data-status="${esc(i.status)}"></span>
-        <span class="name">${esc(i.name)}</span>
-        <span class="meta">${i.status === 'out' ? esc(i.holder || 'out') : esc(i.id)}</span>
+        <span class="name">${esc(i.name)}
+          <span class="sub">${i.status === 'out'
+            ? esc(i.holder) + ' · ' + esc(lasting(i.since))
+            : esc(i.id) + (i.since ? ' · in since ' + esc(stampDate(i.since)) : '')}</span>
+        </span>
+        <span class="meta">${esc((WORDS[i.status] || i.status).toUpperCase())}</span>
       </a></li>`).join('') || '<li><p class="note">Nothing here yet. Tap a tag to add the first item.</p></li>'}
     </ul>
 
     ${feed.length && !term ? `
-      <p class="section-title">Latest</p>
+      <p class="section-title">Latest activity</p>
       <ul class="log">${feed.map(h => `
-        <li><time>${esc(when(h.at))}</time><span>${esc(h.name)} — ${esc(h.action.toLowerCase())}${h.person ? ' by ' + esc(h.person) : ''}</span></li>`).join('')}
+        <li>
+          <time><b>${esc(stampDate(h.at))}</b>${esc(stampTime(h.at))}</time>
+          <span class="what">${esc(h.name)} — ${esc(h.action.toLowerCase())}
+            <span class="by">${h.person ? esc(h.person) : 'no name recorded'}</span>
+          </span>
+        </li>`).join('')}
       </ul>` : ''}
 
     <p class="footer">
-      <button id="csv">Save a backup</button>
+      <a href="?view=log">Full audit log</a>
+      <button id="csv">Export log (CSV)</button>
+      <button id="save">Save a backup</button>
       <button id="restore">Restore a backup</button>
     </p>`;
 
@@ -318,7 +408,8 @@ function renderList(data, term){
     next.setSelectionRange(at, at);
   };
 
-  document.getElementById('csv').onclick = () => backup(data);
+  document.getElementById('csv').onclick = () => exportCsv(data);
+  document.getElementById('save').onclick = () => backup(data);
   document.getElementById('restore').onclick = restore;
 
   const scan = document.getElementById('scan');
@@ -341,16 +432,77 @@ function renderList(data, term){
   };
 }
 
-/* ================================================================= backups */
+function renderAudit(data, term){
+  const t = term.toLowerCase();
+  const rows = data.log.filter(l =>
+    !t || [l.name, l.id, l.action, l.person, stampDate(l.at)].join(' ').toLowerCase().includes(t)
+  );
 
-function backup(data){
-  const stamp = new Date().toISOString().slice(0, 10);
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  app.innerHTML = `
+    <section class="band">
+      <div class="ticker">${('AUDIT LOG · ').repeat(8)}</div>
+      <h1>Audit log</h1>
+      <p class="tag">${data.log.length} entr${data.log.length === 1 ? 'y' : 'ies'} · nothing is ever overwritten</p>
+    </section>
+
+    <div class="search"><label><span>Filter</span><input id="q" placeholder="person, item, tag, or a date" value="${esc(term)}"></label></div>
+
+    <ul class="log">${rows.slice(0, 300).map(l => `
+      <li>
+        <time><b>${esc(stampDate(l.at))}</b>${esc(stampTime(l.at))}</time>
+        <span class="what">${esc(l.name)} <span style="font-family:var(--mono);font-size:12px;color:var(--muted)">${esc(l.id)}</span><br>${esc(l.action)}
+          <span class="by">${l.person ? esc(l.person) : 'no name recorded'}${l.held ? ' · was out ' + esc(l.held) : ''}</span>
+        </span>
+      </li>`).join('') || '<li><p class="note">No entries match.</p></li>'}
+    </ul>
+    ${rows.length > 300 ? '<p class="note">Showing the newest 300. Export the CSV for everything.</p>' : ''}
+
+    <div class="controls" style="padding-top:24px">
+      <button class="btn" data-kind="quiet" id="csv">Export log (CSV)</button>
+      <a class="btn" data-kind="quiet" href="./">All equipment</a>
+    </div>`;
+
+  const box = document.getElementById('q');
+  box.oninput = () => {
+    const at = box.selectionStart;
+    renderAudit(data, box.value);
+    const next = document.getElementById('q');
+    next.focus();
+    next.setSelectionRange(at, at);
+  };
+  document.getElementById('csv').onclick = () => exportCsv(data);
+}
+
+/* ============================================================ exports */
+
+function download(filename, text, type){
+  const blob = new Blob([text], { type });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = `gear-cage-${stamp}.json`;
+  a.download = filename;
   a.click();
   setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+
+function exportCsv(data){
+  const cell = v => '"' + String(v ?? '').replace(/"/g, '""') + '"';
+  const rows = [['Entry', 'Date', 'Time', 'Timestamp (ISO)', 'Tag ID', 'Item', 'Action', 'Person', 'Time held']];
+  data.log.slice().reverse().forEach(l => {
+    rows.push([l.seq ?? '', stampDate(l.at), stampTime(l.at), l.at, l.id, l.name, l.action, l.person, l.held || '']);
+  });
+  download(
+    'gear-cage-log-' + new Date().toISOString().slice(0, 10) + '.csv',
+    '\uFEFF' + rows.map(r => r.map(cell).join(',')).join('\r\n'),
+    'text/csv;charset=utf-8'
+  );
+}
+
+function backup(data){
+  download(
+    'gear-cage-' + new Date().toISOString().slice(0, 10) + '.json',
+    JSON.stringify(data, null, 2),
+    'application/json'
+  );
 }
 
 function restore(){
@@ -365,7 +517,8 @@ function restore(){
       try {
         const data = JSON.parse(reader.result);
         if (!Array.isArray(data.items)) throw new Error('bad shape');
-        commit({ items: data.items, log: Array.isArray(data.log) ? data.log : [] });
+        const log = Array.isArray(data.log) ? data.log : [];
+        commit({ items: data.items, log, nextSeq: data.nextSeq || ((log[0] && log[0].seq || 0) + 1) });
         render();
       } catch (e) {
         hint("That file isn't a Gear Cage backup.");
